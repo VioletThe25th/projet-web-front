@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "web-front-d58bf": {
+      "hosting": {
+        "my-app": [
+          "web-front-d58bf"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "web-front-d58bf"
+  }
+}
