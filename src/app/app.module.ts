@@ -8,10 +8,22 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RoomComponent } from './room/room.component';
+import { DatabaseCallService } from './services/database-call.service';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModalContent } from './room/room.component';
+import { AngularFireModule } from '@angular/fire/compat';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RoomComponent,
+    NavBarComponent,
+    NgbModalContent
   ],
   imports: [
     BrowserModule,
@@ -19,9 +31,14 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    BrowserAnimationsModule,
+    NgbModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
+  providers: [DatabaseCallService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

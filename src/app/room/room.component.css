@@ -1,0 +1,15 @@
+.room {
+    margin-top: 200px;
+    margin-left: 50px;
+    /* background-color: #e3e3e3; */
+}
+
+.inputName {
+    width: 100%;
+}
+
+.inputClass {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #e3e3e3;
+}

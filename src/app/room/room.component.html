@@ -1,0 +1,17 @@
+<div class="room">
+    <div *ngIf="!roomName">
+        <button type="button" class="btn btn-light" (click)="newRoom()">+</button>
+    </div>
+    <div *ngIf="roomName">
+        <p>{{roomName}}</p>
+    </div>
+    <hr width="20%"
+        align="left">
+    <div *ngIf="roomName">
+        <button type="button" class="btn btn-light" (click)="newRoom()">+</button>
+    </div>
+        
+</div>
+
+
+
