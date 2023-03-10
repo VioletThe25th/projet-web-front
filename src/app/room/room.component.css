@@ -35,6 +35,8 @@ ul {
     width: 125px;
     height: 65px;
     justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 #button {
@@ -45,5 +47,6 @@ ul {
     flex-wrap: wrap;
     align-items: baseline;
     margin-right: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
