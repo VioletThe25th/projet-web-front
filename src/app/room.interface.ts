@@ -1,10 +1,11 @@
 export interface Rooms {
-    devices: {
-      name: string,
-      type: string,
-      id: string
-    },
+    devices: [Devices],
     name: string,
     id: string,
     date: Date
-  }
+}
+export interface Devices {
+  name: string,
+  type: string,
+  id: string
+}

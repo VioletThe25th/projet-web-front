@@ -2,15 +2,38 @@
     <div *ngIf="!room?.name">
         <button type="button" class="btn btn-light" (click)="createRoom()">+</button>
     </div>
+
     <div *ngIf="room?.name">
         <!-- <p>{{room | json}}</p> -->
         <p>{{room?.name}}</p>
     </div>
+
     <hr width="300px"
         align="left">
-    <div *ngIf="room?.name">
-        <button type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
+
+    <div *ngIf="room?.name && !room?.devices?.length ">
+        <button id="button-plus" type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
     </div>
+
+    <div *ngIf="room?.name && room?.devices">
+        <ul>
+            <li *ngFor="let device of room?.devices">
+                <button id="button" type="button" class="btn btn-light">
+                    <div>
+                        {{device?.name}}
+                    </div>
+                    <div>
+                        {{device?.type}}
+                    </div>
+                </button>
+            </li>
+            <li>
+                <button id="button-plus" type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
+            </li>
+        </ul>
+
+    </div>
+
     <!-- <div *ngIf="room?.name">
         <hr width="300px"
             align="left">

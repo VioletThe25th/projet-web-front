@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore,  } from '@angular/fire/compat/firestore';
 import { Rooms } from '../room.interface'
 import { ModalDeviceComponent } from './modalDevice.component';
@@ -24,8 +24,7 @@ export class RoomComponent {
     modalRef.componentInstance.roomId = roomId;
   }
 
-  constructor(private modalService: NgbModal, private store: AngularFirestore) {
-  }
+  constructor(private modalService: NgbModal, private store: AngularFirestore) {}
 }
 
 @Component({
@@ -52,30 +51,20 @@ export class RoomComponent {
 })
 
 export class NgbModalContent {
-  constructor(public activeModal: NgbActiveModal, private store: AngularFirestore) {
-  }
+  constructor(public activeModal: NgbActiveModal, private store: AngularFirestore) {}
 
   isRoom: boolean = false;
-
-  deviceForm = new FormGroup({
-    name: new FormControl(''),
-    type: new FormControl('')
-  });
 
   roomForm = new FormGroup({
     name: new FormControl(''),
     date: new FormControl(Date.now()),
-    devices: new FormArray([this.deviceForm])
   });
 
   onSave(roomForm: FormGroup) {
 
     (this.store.collection('rooms').add(this.roomForm.value)).then((results) => {
-      //this.rooms = results;
       this.activeModal.close(roomForm.value.name)
     });
     console.log(roomForm.value);
   }
-
-  appointment?: any;
 }
