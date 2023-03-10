@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { AngularFirestore,  } from '@angular/fire/compat/firestore';
 import { Rooms } from '../room.interface'
+import { ModalDeviceComponent } from './modalDevice.component';
 
 @Component({
   selector: 'app-room',
@@ -12,14 +12,20 @@ import { Rooms } from '../room.interface'
 })
 export class RoomComponent {
 
-  roomName: string = '';
+  @Input() room: Rooms | undefined; 
 
-  async newRoom() {
+
+  createRoom() {
     const modalRef = this.modalService.open(NgbModalContent, { centered: true });
-    this.roomName = await modalRef.result;
-    console.log(this.roomName);
   }
-  constructor(private modalService: NgbModal) {}
+
+  createDevice(roomId: string | undefined) {
+    const modalRef = this.modalService.open(ModalDeviceComponent, { centered: true });
+    modalRef.componentInstance.roomId = roomId;
+  }
+
+  constructor(private modalService: NgbModal, private store: AngularFirestore) {
+  }
 }
 
 @Component({
@@ -47,15 +53,19 @@ export class RoomComponent {
 
 export class NgbModalContent {
   constructor(public activeModal: NgbActiveModal, private store: AngularFirestore) {
-
   }
-
-  rooms: Rooms[] = [];
 
   isRoom: boolean = false;
 
+  deviceForm = new FormGroup({
+    name: new FormControl(''),
+    type: new FormControl('')
+  });
+
   roomForm = new FormGroup({
-    name: new FormControl('')
+    name: new FormControl(''),
+    date: new FormControl(Date.now()),
+    devices: new FormArray([this.deviceForm])
   });
 
   onSave(roomForm: FormGroup) {
@@ -64,7 +74,7 @@ export class NgbModalContent {
       //this.rooms = results;
       this.activeModal.close(roomForm.value.name)
     });
-    console.log(roomForm.value.name);
+    console.log(roomForm.value);
   }
 
   appointment?: any;

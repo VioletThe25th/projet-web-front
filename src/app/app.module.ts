@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalContent } from './room/room.component';
 import { AngularFireModule } from '@angular/fire/compat';
+import { ModalDeviceComponent } from './room/modalDevice.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AngularFireModule } from '@angular/fire/compat';
     AppComponent,
     RoomComponent,
     NavBarComponent,
-    NgbModalContent
+    NgbModalContent,
+    ModalDeviceComponent
   ],
   imports: [
     BrowserModule,

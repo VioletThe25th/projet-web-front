@@ -5,9 +5,13 @@
 <body>
   <app-nav-bar></app-nav-bar>
   <div>
-    <!-- <ul>
-      <li *ngFor="let room of rooms">{{ rooms.name }}</li>
-    </ul> -->
-    <app-room></app-room>
+    <ul>
+      <li *ngFor="let room of rooms | async">
+        <app-room [room]="room"></app-room>
+      </li>
+      <li>
+        <app-room></app-room>
+      </li>
+    </ul>
   </div>
 </body>

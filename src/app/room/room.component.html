@@ -1,16 +1,20 @@
 <div class="room">
-    <div *ngIf="!roomName">
-        <button type="button" class="btn btn-light" (click)="newRoom()">+</button>
+    <div *ngIf="!room?.name">
+        <button type="button" class="btn btn-light" (click)="createRoom()">+</button>
     </div>
-    <div *ngIf="roomName">
-        <p>{{roomName}}</p>
+    <div *ngIf="room?.name">
+        <!-- <p>{{room | json}}</p> -->
+        <p>{{room?.name}}</p>
     </div>
-    <hr width="20%"
+    <hr width="300px"
         align="left">
-    <div *ngIf="roomName">
-        <button type="button" class="btn btn-light" (click)="newRoom()">+</button>
+    <div *ngIf="room?.name">
+        <button type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
     </div>
-        
+    <!-- <div *ngIf="room?.name">
+        <hr width="300px"
+            align="left">
+    </div> -->
 </div>
 
 

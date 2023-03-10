@@ -4,5 +4,7 @@ export interface Rooms {
       type: string,
       id: string
     },
-    id: string
+    name: string,
+    id: string,
+    date: Date
   }
