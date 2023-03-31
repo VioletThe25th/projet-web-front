@@ -17,6 +17,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModalContent } from './room/room.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { ModalDeviceComponent } from './room/modalDevice.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule } from '@angular/router';
+import { MainComponent } from './main/main.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 @NgModule({
@@ -25,9 +29,31 @@ import { ModalDeviceComponent } from './room/modalDevice.component';
     RoomComponent,
     NavBarComponent,
     NgbModalContent,
-    ModalDeviceComponent
+    ModalDeviceComponent,
+    LoginComponent,
+    MainComponent,
+    SignUpComponent
   ],
   imports: [
+    RouterModule.forRoot([
+      {
+        path: 'main',
+        component: MainComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'signUp',
+        component: SignUpComponent
+      },
+      {
+        path:  '**',
+        pathMatch: 'full',
+        redirectTo: '/main'
+      }
+    ]),
     BrowserModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),

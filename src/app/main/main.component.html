@@ -1,0 +1,10 @@
+<div>
+    <ul>
+      <li *ngFor="let room of rooms | async">
+        <app-room [room]="room"></app-room>
+      </li>
+      <li>
+        <app-room></app-room>
+      </li>
+    </ul>
+</div>

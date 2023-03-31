@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore,  } from '@angular/fire/compat/firestore';
 import { Rooms } from '../room.interface'
 import { ModalDeviceComponent } from './modalDevice.component';
+import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-room',
@@ -53,11 +54,14 @@ export class RoomComponent {
 export class NgbModalContent {
   constructor(public activeModal: NgbActiveModal, private store: AngularFirestore) {}
 
+  auth = getAuth();
+
   isRoom: boolean = false;
 
   roomForm = new FormGroup({
     name: new FormControl(''),
     date: new FormControl(Date.now()),
+    owner: new FormControl(this.auth.currentUser?.uid)
   });
 
   onSave(roomForm: FormGroup) {

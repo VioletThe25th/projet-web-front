@@ -2,7 +2,8 @@ export interface Rooms {
     devices: [Devices],
     name: string,
     id: string,
-    date: Date
+    date: Date,
+    owner: string
 }
 export interface Devices {
   name: string,
