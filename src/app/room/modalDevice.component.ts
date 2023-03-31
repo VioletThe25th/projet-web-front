@@ -24,6 +24,8 @@ import { Devices, Rooms } from '../room.interface'
                     <select formControlName="type" style="display: flex;">
                         <option hidden='hidden' selected='selected' value="default">Select Option</option>
                         <option class="inputName" value="Bulb" id="type">Bulb</option>
+                        <option class="inputName" value="Alarm" id="type">Alarm</option>
+                        <option class="inputName" value="Surveillance camera" id="type">Surveillance camera</option>
                     </select>
                 </div>
                 <!-- <input class="inputName" type="text" id="type" formControlName="type"> -->
