@@ -1,6 +1,6 @@
 <div class="room">
-    <div *ngIf="!room?.name && AuthService.isAdmin" type="button" class="btn btn-light">
-        <button type="button" class="btn btn-light" (click)="createRoom()">+</button>
+    <div *ngIf="!room?.name && AuthService.isAdmin">
+        <button id="button-plus" type="button" class="btn btn-light" (click)="createRoom()">+</button>
     </div>
 
     <div *ngIf="room?.name" id="button" type="button" class="btn btn-light">
