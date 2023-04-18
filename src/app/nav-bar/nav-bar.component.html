@@ -29,11 +29,11 @@
         </ul>
           <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
           <div *ngIf="AuthService.isAuth()" class="">
-            <button class=" d-flex btn btn-outline-success" type="button" (click)="disconnectedClicked()">Connected</button>
+            <button class=" d-flex btn btn-outline-success" type="button" (click)="disconnectedClicked()">Disconnect</button>
           </div>
           <div *ngIf="!AuthService.isAuth()" class="d-flex">
             <button class=" d-flex btn btn-outline-success" type="button" routerLink="/login">Login</button>
-            <button class=" d-flex btn btn-outline-success" type="button" (click)="siginInClicked()">Sign in</button>
+            <button class=" d-flex btn btn-outline-success" type="button" routerLink="/signUp">Sign Up</button>
           </div>
         <!-- <button class=" d-flex btn btn-outline-success" type="button">Login</button> -->
       </div>

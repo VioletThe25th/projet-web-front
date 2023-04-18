@@ -22,9 +22,21 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    console.log(this.signInform.value);
     if (this.signInform.valid) {
       this.authService.signIn(this.signInform.value.email, this.signInform.value.password)
+      console.log(this.signInform.value);
     }
+  }
+
+  ngOnInit() {
+    this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.router.navigate(['/main']);
+      } else {
+        console.log("L'utilisateur n'est pas connecté")
+      }
+    })
   }
 
 }

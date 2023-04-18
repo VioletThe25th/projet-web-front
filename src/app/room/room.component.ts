@@ -5,6 +5,7 @@ import { AngularFirestore,  } from '@angular/fire/compat/firestore';
 import { Rooms } from '../room.interface'
 import { ModalDeviceComponent } from './modalDevice.component';
 import { getAuth } from 'firebase/auth';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-room',
@@ -12,6 +13,8 @@ import { getAuth } from 'firebase/auth';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent {
+
+  isAdmin = this.AuthService.isAdmin;
 
   @Input() room: Rooms | undefined; 
 
@@ -25,7 +28,15 @@ export class RoomComponent {
     modalRef.componentInstance.roomId = roomId;
   }
 
-  constructor(private modalService: NgbModal, private store: AngularFirestore) {}
+  modifyDevice(roomId: string | undefined) {
+    const modalRef = this.modalService.open(ModalDeviceComponent, { centered: true });
+    modalRef.componentInstance.roomId = roomId;
+  }
+
+  constructor(private modalService: NgbModal, private store: AngularFirestore, public AuthService: AuthService ) {
+
+
+  }
 }
 
 @Component({

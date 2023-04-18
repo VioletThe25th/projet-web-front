@@ -10,29 +10,33 @@ import { Rooms } from '../room.interface';
 })
 export class AuthService {
 
-  constructor() { }
-
-  app = initializeApp(environment.firebase);
   auth = getAuth();
+  app = initializeApp(environment.firebase);
+  isAdmin: boolean = false;
+
+  constructor() {
+    this.auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = doc(getFirestore(this.app), "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          this.isAdmin = docSnap.data()['role'] == 1 ? true : false;
+        } else {
+          // in this case, doc.data() will be undefined 
+          this.isAdmin = false;
+        }
+      } else {
+        this.isAdmin = false;
+      }
+      console.log(this.auth.currentUser + " coucou");
+    })
+  }
+
+  
 
   isAuth(): boolean{
     return this.auth.currentUser ? true: false;
-  }
-
-  async isOwner(): Promise<boolean>{
-    if (this.auth.currentUser) {
-      const docRef = doc(getFirestore(this.app), "users", this.auth.currentUser.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        return docSnap.data()['role'] == 1 ? true : false;
-      } else {
-        // in this case, doc.data() will be undefined 
-        return false;
-      }
-    }
-    console.log(this.auth.currentUser);
-    return false;
   }
 
   // Inscription with e-mail / password
@@ -45,9 +49,9 @@ export class AuthService {
       const db = getFirestore(this.app);
       const docRef = doc(db, "users", user.uid);
       setDoc(docRef, {
-        firstName: 'Jean',
+        firstName: 'Admin',
         lastName: 'Valjean',
-        role: 0
+        role: 1
       })
     }).catch((error) => {
       const errorCode = error.code;

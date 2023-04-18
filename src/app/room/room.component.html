@@ -1,17 +1,17 @@
 <div class="room">
-    <div *ngIf="!room?.name">
+    <div *ngIf="!room?.name && AuthService.isAdmin" type="button" class="btn btn-light">
         <button type="button" class="btn btn-light" (click)="createRoom()">+</button>
     </div>
 
-    <div *ngIf="room?.name">
+    <div *ngIf="room?.name" id="button" type="button" class="btn btn-light">
         <!-- <p>{{room | json}}</p> -->
-        <p>{{room?.name}}</p>
+        <div>{{room?.name}}</div>
     </div>
 
     <hr width="275px"
         align="left">
 
-    <div *ngIf="room?.name && !room?.devices?.length ">
+    <div *ngIf="room?.name && !room?.devices?.length && AuthService.isAdmin">
         <button id="button-plus" type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
     </div>
 
@@ -27,14 +27,14 @@
                     </div>
                 </button>
             </li>
-            <li>
+            <li *ngIf="AuthService.isAdmin">
                 <button id="button-plus" type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
             </li>
         </ul>
 
     </div>
 
-    <div *ngIf="room?.name">
+    <div *ngIf="room?.name && AuthService.isAdmin">
         <hr width="275px"
             align="left">
     </div>
