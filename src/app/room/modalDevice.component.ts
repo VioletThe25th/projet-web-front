@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { AngularFirestore,  } from '@angular/fire/compat/firestore';
@@ -44,6 +44,8 @@ export class ModalDeviceComponent {
     constructor(public activeModal: NgbActiveModal, private store: AngularFirestore) {
     }
 
+    @Output() deviceTypeEmitter = new EventEmitter<string>();
+
     roomId: string | undefined;
 
     isRoom: boolean = false;
@@ -62,9 +64,13 @@ export class ModalDeviceComponent {
     onSave(roomForm: FormGroup) {
         this.store.doc<Rooms>(`rooms/${this.roomId}`).get().subscribe((room) => {
             const roomData: Devices[] = room.data()?.devices??[];
-            const devices = (roomData).concat(this.roomForm.value.devices as Devices[]);         
+            const devices = (roomData).concat(this.roomForm.value.devices as Devices[]);  
+            const deviceType = this.deviceForm.value.type;        
             (this.store.doc(`rooms/${this.roomId}`).update({devices})).then(() => {
-                this.activeModal.close(this.deviceForm.value)
+                this.activeModal.close(this.deviceForm.value);
+                if (deviceType !== null && deviceType !== undefined) {
+                    this.deviceTypeEmitter.emit(deviceType);
+                }
             });
         })
         

@@ -1,4 +1,5 @@
 <div class="room">
+    
     <div *ngIf="!room?.name && AuthService.isAdmin">
         <button id="button-plus" type="button" class="btn btn-light" (click)="createRoom()">+</button>
     </div>
@@ -8,7 +9,7 @@
         <div>{{room?.name}}</div>
     </div>
 
-    <hr width="275px" align="left">
+    <hr width="500px" align="left">
 
     <div *ngIf="room?.name && !room?.devices?.length && AuthService.isAdmin">
         <button id="button-plus" type="button" class="btn btn-light" (click)="createDevice(room?.id)">+</button>
@@ -17,10 +18,18 @@
     <div *ngIf="room?.name && room?.devices">
         <ul>
             <li *ngFor="let device of room?.devices">
-                <button id="button" type="button" class="btn btn-light">
-                    <div>
-                        {{device?.name}}
-                    </div>
+                <button id="button" type="button" class="btn btn-light" (click)="onDeviceClick($event, device)">
+                    <!-- <i [ngClass]="getDeviceIcon(device)"></i> -->
+                    <ng-container *ngIf="device?.type === 'Bulb'">
+                        <svg width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z"/></svg>
+                    </ng-container>
+                    <ng-container *ngIf="device?.type === 'Alarm'">
+                        <svg width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>
+                    </ng-container>
+                    <ng-container *ngIf="device?.type === 'Surveillance camera'">
+                        <svg  width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.8-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L416 337.1V320 192 174.9l14.2-9.5 96-64c9.8-6.5 22.4-7.2 32.9-1.6z"/></svg>
+                    </ng-container>
+                        <span>{{ device.name }}</span>
                     <div>
                         {{device?.type}}
                     </div>
@@ -34,7 +43,7 @@
     </div>
 
     <div *ngIf="room?.name && AuthService.isAdmin">
-        <hr width="275px" align="left">
+        <hr width="500px" align="left">
     </div>
 </div>
 

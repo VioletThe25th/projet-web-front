@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularFirestore,  } from '@angular/fire/compat/firestore';
-import { Rooms } from '../room.interface'
+import { Devices, Rooms } from '../room.interface'
 import { ModalDeviceComponent } from './modalDevice.component';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
@@ -17,7 +17,6 @@ export class RoomComponent {
   isAdmin = this.AuthService.isAdmin;
 
   @Input() room: Rooms | undefined; 
-
 
   createRoom() {
     const modalRef = this.modalService.open(NgbModalContent, { centered: true });
@@ -35,7 +34,30 @@ export class RoomComponent {
 
   constructor(private modalService: NgbModal, private store: AngularFirestore, public AuthService: AuthService ) {
 
+  }
 
+  onDeviceClick(event: Event, device: Devices): void {
+    if (device.type === 'Bulb') {
+      // change the color of the element here
+      const target = event.currentTarget as HTMLElement;
+      if (target.style.backgroundColor === 'yellow') {
+        target.style.backgroundColor = "white";
+      } else {
+        target.style.backgroundColor = 'yellow';
+      }
+    }
+  }
+
+  getDeviceIcon(device: Devices): string {
+    if (device.type === 'Bulb') {
+      return "fa-solid fa-lightbulb";
+    } else if (device.type === 'thermostat') {
+      return 'fa-thermometer-empty';
+    } else if (device.type === 'camera') {
+      return 'fa-camera';
+    } else {
+      return 'fa-question';
+    }
   }
 }
 
@@ -82,4 +104,6 @@ export class NgbModalContent {
     });
     console.log(roomForm.value);
   }
+
 }
+
