@@ -26,6 +26,7 @@ import { Devices, Rooms } from '../room.interface'
                         <option class="inputName" value="Bulb" id="type">Bulb</option>
                         <option class="inputName" value="Alarm" id="type">Alarm</option>
                         <option class="inputName" value="Surveillance camera" id="type">Surveillance camera</option>
+                        <option class="inputName" value="Shutter" id="type">Shutter</option>
                     </select>
                 </div>
                 <!-- <input class="inputName" type="text" id="type" formControlName="type"> -->

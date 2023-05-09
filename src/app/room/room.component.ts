@@ -62,17 +62,14 @@ export class RoomComponent {
         target.style.backgroundColor = 'red';
       }
     }
-  }
-
-  getDeviceIcon(device: Devices): string {
-    if (device.type === 'Bulb') {
-      return "fa-solid fa-lightbulb";
-    } else if (device.type === 'thermostat') {
-      return 'fa-thermometer-empty';
-    } else if (device.type === 'camera') {
-      return 'fa-camera';
-    } else {
-      return 'fa-question';
+    if (device.type === 'Shutter' && this.isAdmin) {
+      console.log("the device is a shutter");
+      const target = event.currentTarget as HTMLElement;
+      if (target.style.backgroundColor === 'orange') {
+        target.style.backgroundColor = "white";
+      } else {
+        target.style.backgroundColor = 'orange';
+      }
     }
   }
 }
