@@ -46,6 +46,22 @@ export class RoomComponent {
         target.style.backgroundColor = 'yellow';
       }
     }
+    if (device.type === 'Alarm' && this.isAdmin) {
+      const target = event.currentTarget as HTMLElement;
+      if (target.style.backgroundColor === 'blue') {
+        target.style.backgroundColor = "white";
+      } else {
+        target.style.backgroundColor = 'blue';
+      }
+    }
+    if (device.type === 'Surveillance camera' && this.isAdmin) {
+      const target = event.currentTarget as HTMLElement;
+      if (target.style.backgroundColor === 'red') {
+        target.style.backgroundColor = "white";
+      } else {
+        target.style.backgroundColor = 'red';
+      }
+    }
   }
 
   getDeviceIcon(device: Devices): string {
