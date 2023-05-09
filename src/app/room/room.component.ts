@@ -6,6 +6,7 @@ import { Devices, Rooms } from '../room.interface'
 import { ModalDeviceComponent } from './modalDevice.component';
 import { getAuth } from 'firebase/auth';
 import { AuthService } from '../services/auth.service';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-room',
@@ -15,6 +16,8 @@ import { AuthService } from '../services/auth.service';
 export class RoomComponent {
 
   isAdmin = this.AuthService.isAdmin;
+
+  roomId: string | undefined;
 
   @Input() room: Rooms | undefined; 
 
@@ -37,14 +40,17 @@ export class RoomComponent {
   }
 
   onDeviceClick(event: Event, device: Devices): void {
-    if (device.type === 'Bulb') {
-      // change the color of the element here
+    if (this.room && device.type === 'Bulb') {
       const target = event.currentTarget as HTMLElement;
-      if (target.style.backgroundColor === 'yellow') {
-        target.style.backgroundColor = "white";
-      } else {
+      device.isOn = !device.isOn;
+      if (device.isOn) {
         target.style.backgroundColor = 'yellow';
+        this.store.doc(`rooms/${this.roomId}`).update({ isOn: device.isOn });
+      } else {
+        target.style.backgroundColor = 'white';
+        this.store.doc(`rooms/${this.roomId}`).update({ isOn: device.isOn });
       }
+      console.log("is it On ?", device.isOn);
     }
     if (device.type === 'Alarm' && this.isAdmin) {
       const target = event.currentTarget as HTMLElement;

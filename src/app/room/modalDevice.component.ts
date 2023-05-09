@@ -29,6 +29,7 @@ import { Devices, Rooms } from '../room.interface'
                         <option class="inputName" value="Shutter" id="type">Shutter</option>
                     </select>
                 </div>
+                
                 <!-- <input class="inputName" type="text" id="type" formControlName="type"> -->
             </form>
         </div>
@@ -53,7 +54,8 @@ export class ModalDeviceComponent {
 
     deviceForm = new FormGroup({
         name: new FormControl(''),
-        type: new FormControl('')
+        type: new FormControl(''),
+        isOn: new FormControl(false)
     });
 
     roomForm = new FormGroup({
@@ -66,7 +68,7 @@ export class ModalDeviceComponent {
         this.store.doc<Rooms>(`rooms/${this.roomId}`).get().subscribe((room) => {
             const roomData: Devices[] = room.data()?.devices??[];
             const devices = (roomData).concat(this.roomForm.value.devices as Devices[]);  
-            const deviceType = this.deviceForm.value.type;        
+            const deviceType = this.deviceForm.value.type;
             (this.store.doc(`rooms/${this.roomId}`).update({devices})).then(() => {
                 this.activeModal.close(this.deviceForm.value);
                 if (deviceType !== null && deviceType !== undefined) {

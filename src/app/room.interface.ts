@@ -8,5 +8,6 @@ export interface Rooms {
 export interface Devices {
   name: string,
   type: string,
-  id: string
+  id: string,
+  isOn: boolean
 }

@@ -1,4 +1,4 @@
-<div class="room">
+<div *ngIf="AuthService.isAuth()" class="room">
     
     <div *ngIf="!room?.name && AuthService.isAdmin">
         <button id="button-plus" type="button" class="btn btn-light" (click)="createRoom()">+</button>
